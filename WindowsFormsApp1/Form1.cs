@@ -30,7 +30,7 @@ namespace WorkingWithDB
 
             SqlDataReader sqlReader = null;
 
-            SqlCommand command = new SqlCommand("SELECT * FROM [TVZ]", sqlConnection);
+            SqlCommand command = new SqlCommand("SELECT * FROM [Мебельная мастерская ]", sqlConnection);
 
             try
             {
@@ -38,7 +38,8 @@ namespace WorkingWithDB
 
                 while (await sqlReader.ReadAsync())
                 {
-                    listBox1.Items.Add(Convert.ToString(sqlReader["Id"]) + "    " + Convert.ToString(sqlReader["Fio"]) + "       " + Convert.ToString(sqlReader["Position"]));
+                    listBox1.Items.Add(Convert.ToString(sqlReader[" Код товара"]) + "    " + Convert.ToString(sqlReader["Товар "]));
+
                 }
             }
             catch (Exception ex)
@@ -66,25 +67,23 @@ namespace WorkingWithDB
 
         private async void button1_Click(object sender, EventArgs e)
         {
-            if (label7.Visible)
-                label7.Visible = false;
+            if (label6.Visible)
+                label6.Visible = false;
 
             if (!string.IsNullOrEmpty(textBox1.Text) && !string.IsNullOrWhiteSpace(textBox1.Text) &&
                 !string.IsNullOrEmpty(textBox2.Text) && !string.IsNullOrWhiteSpace(textBox2.Text))
             {
-                SqlCommand command = new SqlCommand("INSERT INTO [TVZ] (FIO, Position)VALUES(@FIO, @Position)", sqlConnection);
+                SqlCommand command = new SqlCommand("INSERT INTO [Мебельная мастерская] (Код заказа,Товар )VALUES(@Код заказа, @Товар)", sqlConnection);
 
-                command.Parameters.AddWithValue("FIO", textBox1.Text);
+                command.Parameters.AddWithValue("Код заказа", textBox1.Text);
 
-                command.Parameters.AddWithValue("Position", textBox2.Text);
+                command.Parameters.AddWithValue("Товар", textBox2.Text);
 
                 await command.ExecuteNonQueryAsync();
             }
             else
             {
-                label7.Visible = true;
-
-                label7.Text = "Поля 'ФИО' и 'Должность' должны быть заполнены!";
+                label6.Visible = true;
             }
         }
 
@@ -94,7 +93,7 @@ namespace WorkingWithDB
 
             SqlDataReader sqlReader = null;
 
-            SqlCommand command = new SqlCommand("SELECT * FROM [TVZ]", sqlConnection);
+            SqlCommand command = new SqlCommand("SELECT * FROM [Мебельная мастерская]", sqlConnection);
 
             try
             {
@@ -102,7 +101,7 @@ namespace WorkingWithDB
 
                 while (await sqlReader.ReadAsync())
                 {
-                    listBox1.Items.Add(Convert.ToString(sqlReader["Id"]) + "    " + Convert.ToString(sqlReader["FIO"]) + "       " + Convert.ToString(sqlReader["Position"]));
+                    listBox1.Items.Add(Convert.ToString(sqlReader["Код товара"]) + "    " + Convert.ToString(sqlReader["Товар "]));
                 }
             }
             catch (Exception ex)
@@ -118,53 +117,47 @@ namespace WorkingWithDB
 
         private async void button2_Click(object sender, EventArgs e)
         {
-            if (label8.Visible)
-                label8.Visible = false;
+            if (label6.Visible)
+                label6.Visible = false;
 
             if (!string.IsNullOrEmpty(textBox3.Text) && !string.IsNullOrWhiteSpace(textBox3.Text) &&
                 !string.IsNullOrEmpty(textBox4.Text) && !string.IsNullOrWhiteSpace(textBox4.Text) &&
-                !string.IsNullOrEmpty(textBox5.Text) && !string.IsNullOrWhiteSpace(textBox5.Text))
+                !string.IsNullOrEmpty(textBox6.Text) && !string.IsNullOrWhiteSpace(textBox6.Text))
             {
-                SqlCommand command = new SqlCommand("UPDATE [TVZ] SET [FIO]=@FIO, [Position]=@Position WHERE [Id]=@Id", sqlConnection);
+                SqlCommand command = new SqlCommand("UPDATE [пункт обмена валюты] SET [Кассир]=@Кассир, [Валюта]=@Валюта  WHERE [Сделка]=@Сделка", sqlConnection);
 
-                command.Parameters.AddWithValue("Id", textBox5.Text);
-                command.Parameters.AddWithValue("FIO", textBox4.Text);
-                command.Parameters.AddWithValue("Position", textBox3.Text);
+                command.Parameters.AddWithValue("Валюта", textBox6.Text);
+                command.Parameters.AddWithValue("Кассир", textBox4.Text);
+                command.Parameters.AddWithValue("Сделка", textBox3.Text);
 
                 await command.ExecuteNonQueryAsync();
             }
             else if (!string.IsNullOrEmpty(textBox4.Text) && !string.IsNullOrWhiteSpace(textBox4.Text))
             {
-                label8.Visible = true;
-
-                label8.Text = "Id должнен быть заполнен!";
+                label5.Visible = true;
             }
             else
             {
-                label8.Visible = true;
-
-                label8.Text = "Поля 'Id', 'ФИО' и 'Должность' должны быть заполнены!";
+                label5.Visible = true;
             }
         }
 
         private async void button3_Click(object sender, EventArgs e)
         {
-            if (label8.Visible)
-                label8.Visible = false;
+            if (label6.Visible)
+                label6.Visible = false;
 
             if (!string.IsNullOrEmpty(textBox6.Text) && !string.IsNullOrWhiteSpace(textBox6.Text))
             {
-                SqlCommand command = new SqlCommand("DELETE FROM [TVZ] WHERE [Id]=@Id", sqlConnection);
+                SqlCommand command = new SqlCommand("DELETE FROM [Мебельная мастерская] WHERE [Цена изделия]=@Цена изделия", sqlConnection);
 
-                command.Parameters.AddWithValue("Id", textBox6.Text);
+                command.Parameters.AddWithValue("Цена изделия", textBox6.Text);
 
                 await command.ExecuteNonQueryAsync();
             }
             else
             {
-                label8.Visible = true;
-
-                label8.Text = "Id должнен быть заполнен!";
+                label6.Visible = true;
             }
         }
     }
